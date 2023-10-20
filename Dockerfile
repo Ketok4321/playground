@@ -15,7 +15,7 @@ WORKDIR /src/AdvancedEsolang
 RUN dotnet publish AdvancedEsolang.Cli -c Release -r linux-x64 --self-contained -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:InvariantGlobalization=true
 
 FROM debian:bookworm-slim
-RUN apt-get update && apt-get -y install vim curl less neofetch
+RUN apt-get update && apt-get -y install vim curl less
 WORKDIR /root
 COPY --from=whereso /src/whereso/src/WhereEsolang.Cli/bin/Release/net7.0/linux-x64/publish/WhereEsolang.Cli /usr/local/bin/whereso
 COPY --from=whereso /src/whereso/samples whereso/samples

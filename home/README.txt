@@ -9,7 +9,6 @@ The following of my projects are installed there:
 
 There are also a few utilities added:
 - vim
-- neofetch
 - curl
 - less
 

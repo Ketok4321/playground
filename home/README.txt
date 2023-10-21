@@ -5,7 +5,7 @@ The virtual machine runs debian bookworm, with some stuff added.
 
 The following of my projects are installed there:
 - Where esolang (/usr/local/bin/whereso)
-- Advanced esolang (very indev, terrible performance in vm) (/usr/local/bin/adv)
+- Advanced esolang (/usr/local/bin/adv)
 
 There are also a few utilities added:
 - vim

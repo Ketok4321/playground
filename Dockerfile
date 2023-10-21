@@ -12,7 +12,7 @@ RUN apt-get update && apt-get -y install git clang zlib1g-dev
 WORKDIR /src
 RUN git clone https://github.com/Ketok4321/AdvancedEsolang
 WORKDIR /src/AdvancedEsolang
-RUN dotnet publish AdvancedEsolang.Cli -c Release -r linux-x64 --self-contained -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:InvariantGlobalization=true
+RUN dotnet publish AdvancedEsolang.Cli -c Release -r linux-x64 --self-contained -p:PublishAot=true -p:InvariantGlobalization=true
 
 FROM debian:bookworm-slim
 RUN apt-get update && apt-get -y install vim curl less

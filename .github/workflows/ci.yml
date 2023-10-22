@@ -49,19 +49,21 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: playground-wasm
-          path: playground.wasm
+          path: playground00.wasm
   build-website:
     runs-on: ubuntu-latest
     needs: build-wasm
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
           name: playground-wasm
-          path: website
+          path: ${{ github.workspace }}/website
       - name: Build website
         run: |
-          tar cf website.tar --directory=website .
+          tar cf website.tar --directory=${{ github.workspace }}/website .
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:

@@ -44,12 +44,12 @@ jobs:
           tar -C /usr/local/bin -xvf /tmp/c2w.tar.gz
       - name: Build
         run: |
-          c2w playground:latest /tmp/playground.wasm
+          c2w playground:latest playground.wasm
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: playground-wasm
-          path: /tmp/playground.wasm
+          path: playground.wasm
   deploy:
     runs-on: ubuntu-latest
     needs: build-wasm

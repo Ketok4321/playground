@@ -44,7 +44,7 @@ jobs:
           tar -C /usr/local/bin -xvf /tmp/c2w.tar.gz
       - name: Build
         run: |
-          c2w playground:latest playground.wasm
+          c2w playground:latest playground00.wasm
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:

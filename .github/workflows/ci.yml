@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - "main"
+      - main
 
 jobs:
   build-image:
@@ -50,3 +50,18 @@ jobs:
         with:
           name: playground-wasm
           path: /tmp/playground.wasm
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-wasm
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+        with:
+          artifact_name: "playground-wasm"

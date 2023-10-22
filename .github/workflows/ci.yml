@@ -50,9 +50,26 @@ jobs:
         with:
           name: playground-wasm
           path: playground.wasm
-  deploy:
+  build-website:
     runs-on: ubuntu-latest
     needs: build-wasm
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: playground-wasm
+          path: website
+      - name: Build website
+        run: |
+          tar czf website.tar.gz --directory=website .
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: github-pages
+          path: website.tar.gz
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-website
     permissions:
       pages: write
       id-token: write
@@ -63,5 +80,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
-        with:
-          artifact_name: "playground-wasm"

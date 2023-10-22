@@ -61,12 +61,12 @@ jobs:
           path: website
       - name: Build website
         run: |
-          tar czf website.tar.gz --directory=website .
+          tar cf website.tar --directory=website .
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: github-pages
-          path: website.tar.gz
+          path: website.tar
   deploy:
     runs-on: ubuntu-latest
     needs: build-website

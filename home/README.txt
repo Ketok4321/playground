@@ -8,7 +8,7 @@ The following of my projects are installed there:
 - Advanced esolang (/usr/local/bin/adv)
 
 There are also a few utilities added:
-- vim
+- vi
 - curl
 - less
 

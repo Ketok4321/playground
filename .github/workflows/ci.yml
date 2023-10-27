@@ -44,12 +44,12 @@ jobs:
           tar -C /usr/local/bin -xvf /tmp/c2w.tar.gz
       - name: Build
         run: |
-          c2w playground:latest playground00.wasm
+          c2w playground:latest playground.wasm
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: playground-wasm
-          path: playground00.wasm
+          path: playground.wasm
   
   deploy:
     runs-on: ubuntu-latest
@@ -65,6 +65,13 @@ jobs:
         with:
           name: playground-wasm
           path: ${{ github.workspace }}/website
+      - name: Split
+        run: |
+          DEST=website
+          OUTPUT_NAME=playground
+          WASI_MAX_CHUNK=26MB
+          split -d -b "${WASI_MAX_CHUNK}" --additional-suffix=.wasm "${DEST}/${OUTPUT_NAME}.wasm" "${DEST}/${OUTPUT_NAME}"
+          rm "${DEST}/${OUTPUT_NAME}.wasm"
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:

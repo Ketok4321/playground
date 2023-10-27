@@ -66,12 +66,16 @@ jobs:
           name: playground-wasm
           path: ${{ github.workspace }}/website
       - name: Split
+        shell: bash
         run: |
           DEST=website
           OUTPUT_NAME=playground
           WASI_MAX_CHUNK=26MB
           split -d -b "${WASI_MAX_CHUNK}" --additional-suffix=.wasm "${DEST}/${OUTPUT_NAME}.wasm" "${DEST}/${OUTPUT_NAME}"
           rm "${DEST}/${OUTPUT_NAME}.wasm"
+
+          count=$(echo "website/playground*" | wc -w)
+          sed -i "s/CHUNK_COUNT/${count}/g" website/index.html
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:

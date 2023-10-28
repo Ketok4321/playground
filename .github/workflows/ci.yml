@@ -74,7 +74,7 @@ jobs:
           split -d -b "${WASI_MAX_CHUNK}" --additional-suffix=.wasm "${DEST}/${OUTPUT_NAME}.wasm" "${DEST}/${OUTPUT_NAME}"
           rm "${DEST}/${OUTPUT_NAME}.wasm"
 
-          count=$(echo "website/playground*" | wc -w)
+          count=$(echo website/playground* | wc -w)
           sed -i "s/CHUNK_COUNT/${count}/g" website/index.html
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1

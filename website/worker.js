@@ -4,6 +4,8 @@ var stackWorker;
 function startWasi(elemId, workerFileName, workerImageNamePrefix, workerImageChunks) {
     const xterm = new Terminal();
     xterm.open(document.getElementById(elemId));
+    xterm.writeln("Loading... (it might take up to a few minutes)");
+    xterm.writeln("The wait will be worth it, i promise.");
     const { master, slave } = openpty();
     var termios = slave.ioctl("TCGETS");
     termios.iflag &= ~(/*IGNBRK | BRKINT | PARMRK |*/ ISTRIP | INLCR | IGNCR | ICRNL | IXON);
@@ -24,7 +26,24 @@ function startWasi(elemId, workerFileName, workerImageNamePrefix, workerImageChu
     if (!nwStack) {
         worker.postMessage({type: "init", imagename: workerImageNamePrefix, chunks: workerImageChunks});
     }
-    new TtyServer(slave).start(worker, nwStack);
+
+    let chunksReceived = 0;
+
+    const handler = (e) => {
+        const { dl_type } = e.data;
+        if(dl_type === undefined) {
+            nwStack(e);
+        }
+        else if(dl_type == "progress") {
+            chunksReceived++;
+            xterm.writeln(`Received chunk ${chunksReceived} of ${workerImageChunks}`);
+        }
+        else if(dl_type == "done") {
+            xterm.clear();
+        }
+    };
+
+    new TtyServer(slave).start(worker, handler);
 }
 
 function getNetParam() {

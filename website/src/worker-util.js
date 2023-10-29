@@ -46,16 +46,18 @@ function fetchChunks(f) {
         files[i] = s;
     }
     files = files.map(format);
-    var list = [];
-    files.forEach(file => list.push(fetch(file)));
-    var results = [];
+    var list = files.map(async file => {
+        const res = await (await fetch(file)).arrayBuffer();
+        postMessage({ dl_type: "progress" });
+        return res;
+    });
     var blob;
+
     Promise.all(list).then(resps => {
-        resps.forEach(r => results.push(r['arrayBuffer']()));
-        Promise.all(results).then(ab => {
-            blob = new Blob(ab);
-            blob.arrayBuffer().then(f);
-        })
+        blob = new Blob(resps);
+        blob.arrayBuffer().then(f);
+
+        postMessage({ dl_type: "done" });
     });
 }
 

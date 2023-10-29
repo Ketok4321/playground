@@ -8,12 +8,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.1.0/css/xterm.css">
 </head>
 <body>
-<div class="d-inline-block" id="terminal-amd64-debian"></div>
+<div class="d-inline-block" id="terminal"></div>
 <script src="https://cdn.jsdelivr.net/npm/xterm@5.1.0/lib/xterm.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xterm-pty@0.9.4/index.js"></script>
 <script src="./src/stack.js"></script>
 <script src="./worker.js"></script>
-<script>startWasi("terminal-amd64-debian", "./src/worker.js"+location.search, "../playground", CHUNK_COUNT);</script>
+<script>startWasi("terminal", "./src/worker.js"+location.search, "../playground", CHUNK_COUNT);</script>
 </body>
 
 </html>

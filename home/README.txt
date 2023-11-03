@@ -7,6 +7,8 @@ The following of my projects are installed there:
 - Where esolang (/usr/local/bin/whereso)
 - Advanced esolang (/usr/local/bin/adv)
 
+You can read more about them, and find stuff for them in 'whereso' and 'adv' subdirectories respectively.
+
 There are also a few utilities added:
 - vi
 - curl

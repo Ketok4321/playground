@@ -3,7 +3,10 @@ var stackWorker;
 
 function startWasi(elemId, workerFileName, workerImageNamePrefix, workerImageChunks) {
     const xterm = new Terminal();
+    const fit = new FitAddon();
+    xterm.loadAddon(fit);
     xterm.open(document.getElementById(elemId));
+    fit.fit();
     xterm.writeln("Loading... (it might take up to a few minutes)");
     xterm.writeln("The wait will be worth it, i promise.");
     const { master, slave } = openpty();

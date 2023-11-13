@@ -3,7 +3,7 @@ var stackWorker;
 
 function startWasi(elemId, workerFileName, workerImageNamePrefix, workerImageChunks) {
     const xterm = new Terminal();
-    const fit = new FitAddon();
+    const fit = new FitAddon.FitAddon();
     xterm.loadAddon(fit);
     xterm.open(document.getElementById(elemId));
     fit.fit();

@@ -1,7 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 as whereso
-RUN apt-get update && apt-get -y install curl tar clang zlib1g-dev
+RUN apt-get update && apt-get -y install git tar clang zlib1g-dev
 WORKDIR /src
-RUN curl https://github.com/Ketok4321/WhereEsolang/archive/refs/tags/v0.2.1.tar.gz -Lo /src/whereso.tar.gz
+#RUN curl https://github.com/Ketok4321/WhereEsolang/archive/refs/tags/v0.2.1.tar.gz -Lo /src/whereso.tar.gz
+RUN git clone https://github.com/Ketok4321/WhereEsolang
 WORKDIR /src/whereso/
 RUN tar -C /src/whereso -xvf /src/whereso.tar.gz --strip-components=1
 RUN cd src && dotnet publish WhereEsolang.Cli -c Release -r linux-x64 --self-contained -p:PublishAot=true -p:PublishSingleFile=false -p:InvariantGlobalization=true

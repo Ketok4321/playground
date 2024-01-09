@@ -20,6 +20,7 @@ WORKDIR /root
 COPY --from=whereso /src/WhereEsolang/src/WhereEsolang.Cli/bin/Release/net8.0/linux-x64/publish/WhereEsolang.Cli /usr/local/bin/whereso
 COPY --from=whereso /src/WhereEsolang/samples whereso/samples
 COPY --from=advancedeso /src/AdvancedEsolang/AdvancedEsolang.Cli/bin/Release/net8.0/linux-x64/publish/AdvancedEsolang.Cli /usr/local/bin/adv
+COPY --from=advancedeso /src/AdvancedEsolang/extra adv/extra
 COPY --from=advancedeso /src/AdvancedEsolang/samples adv/samples
 COPY --from=advancedeso /src/AdvancedEsolang/std adv/std
 COPY --from=advancedeso /src/AdvancedEsolang/tests adv/tests

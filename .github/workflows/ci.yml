@@ -40,7 +40,7 @@ jobs:
           docker image ls -a          
       - name: Install container2wasm
         run: |
-          curl https://github.com/ktock/container2wasm/releases/download/v0.6.0/container2wasm-v0.6.0-linux-amd64.tar.gz -Lo /tmp/c2w.tar.gz
+          curl https://github.com/ktock/container2wasm/releases/download/v0.6.2/container2wasm-v0.6.2-linux-amd64.tar.gz -Lo /tmp/c2w.tar.gz
           tar -C /usr/local/bin -xvf /tmp/c2w.tar.gz
       - name: Build
         run: |

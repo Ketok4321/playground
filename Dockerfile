@@ -1,16 +1,14 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 as whereso
 RUN apt-get update && apt-get -y install git clang zlib1g-dev
 WORKDIR /src
-#RUN curl https://github.com/Ketok4321/WhereEsolang/archive/refs/tags/v0.2.1.tar.gz -Lo /src/whereso.tar.gz
-RUN git clone https://github.com/Ketok4321/WhereEsolang
+RUN git clone https://github.com/Ketok4321/WhereEsolang --branch v0.2.2 --single-branch
 WORKDIR /src/WhereEsolang
-#RUN tar -C /src/whereso -xvf /src/whereso.tar.gz --strip-components=1
-RUN cd src && dotnet publish WhereEsolang.Cli -c Release -r linux-x64 --self-contained -p:PublishAot=true -p:PublishSingleFile=false -p:InvariantGlobalization=true
+RUN cd src && dotnet publish WhereEsolang.Cli -c Release
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 as advancedeso
 RUN apt-get update && apt-get -y install git clang zlib1g-dev
 WORKDIR /src
-RUN git clone https://github.com/Ketok4321/AdvancedEsolang
+RUN git clone https://github.com/Ketok4321/AdvancedEsolang --single-branch
 WORKDIR /src/AdvancedEsolang
 RUN dotnet publish AdvancedEsolang.Cli -c Release -r linux-x64 --self-contained -p:PublishAot=true -p:InvariantGlobalization=true
 

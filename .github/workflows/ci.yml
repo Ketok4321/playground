@@ -20,7 +20,7 @@ jobs:
           tags: playground:latest
           outputs: type=docker,dest=/tmp/playground.tar
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: playground
           path: /tmp/playground.tar
@@ -30,7 +30,7 @@ jobs:
     needs: build-image
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: playground 
           path: /tmp
@@ -40,13 +40,13 @@ jobs:
           docker image ls -a          
       - name: Install container2wasm
         run: |
-          curl https://github.com/ktock/container2wasm/releases/download/v0.6.2/container2wasm-v0.6.2-linux-amd64.tar.gz -Lo /tmp/c2w.tar.gz
+          curl https://github.com/ktock/container2wasm/releases/download/v0.8.0/container2wasm-v0.8.0-linux-amd64.tar.gz -Lo /tmp/c2w.tar.gz
           tar -C /usr/local/bin -xvf /tmp/c2w.tar.gz
       - name: Build
         run: |
           c2w playground:latest playground.wasm
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: playground-wasm
           path: playground.wasm
@@ -61,7 +61,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: playground-wasm
           path: ${{ github.workspace }}/website

@@ -12,6 +12,13 @@ RUN git clone https://github.com/Ketok4321/AdvancedEsolang --single-branch
 WORKDIR /src/AdvancedEsolang
 RUN dotnet publish AdvancedEsolang.Cli -c Release -r linux-x64 --self-contained -p:PublishAot=true -p:InvariantGlobalization=true
 
+FROM rust:1.86-slim-bullseye as advrs
+RUN apt-get update && apt-get -y install git
+WORKDIR /src
+RUN git clone https://github.com/Ketok4321/advrs --single-branch
+WORKDIR /src/advrs
+RUN cargo build --locked --release
+
 FROM debian:bookworm-slim
 RUN apt-get update && apt-get -y --no-install-recommends install vim-tiny curl less && apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /root
@@ -22,6 +29,8 @@ COPY --from=advancedeso /src/AdvancedEsolang/extra adv/extra
 COPY --from=advancedeso /src/AdvancedEsolang/samples adv/samples
 COPY --from=advancedeso /src/AdvancedEsolang/std adv/std
 COPY --from=advancedeso /src/AdvancedEsolang/tests adv/tests
+COPY --from=advrs /src/advrs/target/release/advrs /usr/local/bin/advrs
+COPY --from=advrs /src/advrs/samples advrs/samples
 COPY home . 
 ENV TERM=xterm-256color
 CMD [ "/bin/bash" ]
